@@ -31,7 +31,7 @@ runs:
         CERTIFICATES_PASSWORD: ${{ inputs.certificates-password }}
         KEYCHAIN_PASSWORD: ${{ inputs.keychain-password }}
       run: |
-        echo $CERTIFICATES_P12
+        echo 'CERTIFICATES_P12 $CERTIFICATES_P12'
         echo $CERTIFICATES_P12 | base64 —decode > certificate.p12
         security create-keychain -p <your-password> build.keychain
         security default-keychain -s build.keychain
