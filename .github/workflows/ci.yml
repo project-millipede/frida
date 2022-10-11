@@ -26,7 +26,7 @@ jobs:
       matrix:
         arch: [ x86_64 ]
       fail-fast: false
-    runs-on: ${{ matrix.arch == 'x86_64' && 'macos-12' }}
+    runs-on: ${{ matrix.arch == 'x86_64' && 'macos-latest' }}
     steps:
       - name: Check out repo
         uses: actions/checkout@v3
