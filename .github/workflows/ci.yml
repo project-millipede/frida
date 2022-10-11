@@ -21,7 +21,6 @@ env:
 
 jobs:
   frida-macos-test:
-    needs: toolchain-macos
     strategy:
       matrix:
         arch: [ x86_64 ]
