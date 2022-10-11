@@ -28,17 +28,26 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.arch == 'x86_64' && 'macos-12' }}
     steps:
-      - name: Check out repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          submodules: true
+      - name: Codesign executable
+        env:
+          CERTIFICATES_P12: ${{ secrets.APPLE_CERTIFICATES_P12 }}
+          CERTIFICATES_PASSWORD: ${{ secrets.APPLE_CERTIFICATES_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
+          # MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          # MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+        run: |
+          echo CERTIFICATES_PASSWORD $CERTIFICATES_PASSWORD
       - name: Set up environment
         uses: ./.github/actions/setup-macos-env
         with:
           certificates-p12: ${{ secrets.APPLE_CERTIFICATES_P12 }}
           certificates-password: ${{ secrets.APPLE_CERTIFICATES_PASSWORD }}
           keychain-password: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: true
       - name: Build Gum libraries and tools
         run: make build/frida-macos-${{ matrix.arch }}/lib/pkgconfig/frida-gum-1.0.pc
       - name: Tests Gum libraries and tools
