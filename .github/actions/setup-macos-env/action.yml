@@ -31,18 +31,15 @@ runs:
         CERTIFICATES_PASSWORD: ${{ inputs.certificates-password }}
         KEYCHAIN_PASSWORD: ${{ inputs.keychain-password }}
       run: |
-        CERTIFICATE_PATH=$RUNNER_TEMP/apple-certificates.p12
-        KEYCHAIN_PATH=$RUNNER_TEMP/frida-signing.keychain-db
-        echo -n "$CERTIFICATES_P12" | base64 --decode --output $CERTIFICATE_PATH
-        security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-        security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-        security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-        security import $CERTIFICATE_PATH -P "$CERTIFICATES_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-        security list-keychain -d user -s $KEYCHAIN_PATH
-        rm $CERTIFICATE_PATH
+        echo $CERTIFICATES_P12 | base64 —decode > certificate.p12
+        security create-keychain -p <your-password> build.keychain
+        security default-keychain -s build.keychain
+        security unlock-keychain -p <your-password> build.keychain
+        security import certificate.p12 -k build.keychain -P $CERTIFICATES_PASSWORD -T /usr/bin/codesign
+        security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k <your-password> build.keychain
+        /usr/bin/codesign --force -s <identity-id> ./path/to/you/app -v
         (
           echo MACOS_CERTID=$(security find-identity -v -p codesigning | grep "Developer ID Application: " | awk '{ print $2 }')
-          echo IOS_CERTID=$(security find-identity -v -p codesigning | grep "Apple Development: " | awk '{ print $2 }')
         ) >> $GITHUB_ENV
       shell: bash
     - name: Configure git
