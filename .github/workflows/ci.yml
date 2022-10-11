@@ -33,8 +33,9 @@ jobs:
           CERTIFICATES_P12: ${{ secrets.APPLE_CERTIFICATES_P12 }}
           CERTIFICATES_PASSWORD: ${{ secrets.APPLE_CERTIFICATES_PASSWORD }}
           KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
-        run: |
-          echo $CERTIFICATES_P12
+        run: | 
+          echo 'Hello world' 
+          echo '$CERTIFICATES_PASSWORD'
 #      - name: Check out repo
 #        uses: actions/checkout@v3
 #        with:
