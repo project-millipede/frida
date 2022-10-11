@@ -24,4 +24,4 @@
 	url = https://github.com/frida/frida-tools.git
 [submodule "frida-core"]
 	path = frida-core
-	url = git@github.com:project-millipede/frida-core.git
+	url = https://github.com/project-millipede/frida-core.git
