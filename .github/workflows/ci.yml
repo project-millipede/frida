@@ -52,12 +52,12 @@ jobs:
           certificates-p12: ${{ secrets.APPLE_CERTIFICATES_P12 }}
           certificates-password: ${{ secrets.APPLE_CERTIFICATES_PASSWORD }}
           keychain-password: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
-      - name: Build Gum libraries and tools
-        run: make build/frida-macos-${{ matrix.arch }}/lib/pkgconfig/frida-gum-1.0.pc
-      - name: Tests Gum libraries and tools
-        run: | 
-          make build/frida-macos-${{ matrix.arch }}/lib/pkgconfig/frida-gum-1.0.pc
-          ./build/tmp-macos-${{ matrix.arch }}/frida-gum/tests/gum-tests
+      # - name: Build Gum libraries and tools
+      #   run: make build/frida-macos-${{ matrix.arch }}/lib/pkgconfig/frida-gum-1.0.pc
+      # - name: Tests Gum libraries and tools
+      #  run: |
+      #    make build/frida-macos-${{ matrix.arch }}/lib/pkgconfig/frida-gum-1.0.pc
+      #    ./build/tmp-macos-${{ matrix.arch }}/frida-gum/tests/gum-tests
       - name: Build Core libraries and tools
         run: make build/frida-macos-${{ matrix.arch }}/lib/pkgconfig/frida-core-1.0.pc
       - name: Tests Core libraries and tools
