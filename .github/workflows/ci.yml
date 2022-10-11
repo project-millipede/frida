@@ -36,7 +36,7 @@ jobs:
           # MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
           # MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
         run: |
-          echo APPLE_CERTIFICATES_P12 $APPLE_CERTIFICATES_P12
+          echo CERTIFICATES_P12 $CERTIFICATES_P12
       - name: Set up environment
         uses: ./.github/actions/setup-macos-env
         with:
