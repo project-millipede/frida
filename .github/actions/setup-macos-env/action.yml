@@ -41,10 +41,14 @@ runs:
         security list-keychain -d user -s $KEYCHAIN_PATH
         rm $CERTIFICATE_PATH
         (
-          echo MACOS_CERTID=$(security find-identity -v -p codesigning | grep "Developer ID Application: " | awk '{ print $2 }')
-          echo IOS_CERTID=$(security find-identity -v -p codesigning | grep "Apple Development: " | awk '{ print $2 }')
+          echo MACOS_CERTID=$(security find-identity -v -p codesigning | grep "Apple Development: " | awk '{ print $2 }')
         ) >> $GITHUB_ENV
       shell: bash
+
+      #(
+      #echo MACOS_CERTID=$(security find-identity -v -p codesigning | grep "Developer ID Application: " | awk '{ print $2 }')
+      #          echo IOS_CERTID=$(security find-identity -v -p codesigning | grep "Apple Development: " | awk '{ print $2 }')
+      #        ) >> $GITHUB_ENV
 #      run: |
 #        echo CERTIFICATES_P12 external $CERTIFICATES_P12
 #        echo $CERTIFICATES_P12 | base64 —decode > certificate.p12
