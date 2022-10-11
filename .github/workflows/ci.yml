@@ -19,6 +19,7 @@ env:
   ELECTRON_TARGETS_DEFAULT: '20.0.0'
   ELECTRON_TARGETS_FREEBSD: '16.0.0'
 
+
 jobs:
   frida-macos-test:
     strategy:
